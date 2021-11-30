@@ -19,10 +19,9 @@ const getUserFromToken= async(token, db)=>{
 const resolvers = {
     
     Query:{
-        myProjectList: async (_, __, {db, user}) =>{
-            if(!user){console.log("No esta autenticado please start sesion")}
+        myProjectList: async (_, __, {db}) =>{
             return await db.collection("ProjectList")
-                                        .find({userIds: user._id})
+                                        .find()
                                         .toArray();
         },
     },
@@ -167,6 +166,8 @@ type Mutation{
  createProjectList(title:String!):ProjectList!
  updateProjectList(id:ID!, title:String!):ProjectList!
  deleteProjectList(id:ID!):Boolean!
+ addUserToTaskList(taskListId: ID!, userId: ID!): TaskList
+
 }
 
 input SignUpInput{
